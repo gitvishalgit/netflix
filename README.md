@@ -90,7 +90,9 @@ docker run -d --name netflix -p 8081:80 netflix:latest
         To access: 
         
         publicIP:9000 (by default username & password is admin)
-        
+      
+        ![image](https://github.com/user-attachments/assets/5dd31956-48ee-4a35-a315-3cc91e2d1718)
+
         To install Trivy:
         ```
         sudo apt-get install wget apt-transport-https gnupg lsb-release
