@@ -196,6 +196,9 @@ After adding sonar token
 Click on Apply and Save
 
 **The Configure System option** is used in Jenkins to configure different server
+![image](https://github.com/user-attachments/assets/df4ecd6d-710f-4d95-ab39-929e31a420d8)
+
+
 
 **Global Tool Configuration** is used to configure different tools that we install using Plugins
 
