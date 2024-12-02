@@ -166,8 +166,20 @@ stage view
 
 
 ### **Configure Java and Nodejs in Global Tool Configuration**
-
 Goto Manage Jenkins → Tools → Install JDK(17) and NodeJs(16)→ Click on Apply and Save
+#### Jdk
+![image](https://github.com/user-attachments/assets/fe876745-d024-403c-806b-4a7d8c1dba11)
+#### SonarQube-Scanner
+![image](https://github.com/user-attachments/assets/24589963-9a7e-4d6a-9598-66580c195e30)
+
+#### Node-js
+![image](https://github.com/user-attachments/assets/51617874-be4d-438c-a93e-5a5d9e5781fa)
+#### Docker
+![image](https://github.com/user-attachments/assets/289c2e2a-df33-476b-a195-d584db3ef03e)
+
+
+
+
 
 
 ### SonarQube
