@@ -65,6 +65,8 @@ TMDB API-KEY:
 - Provide the required basic details and click "Submit."
 - You will receive your TMDB API key.
 
+![image](https://github.com/user-attachments/assets/7deedb6b-6c33-483e-a9a7-5208752a3b44)
+
 Build and run your application using with your api key:
 ```
 docker build --build-arg TMDB_V3_API_KEY=<your-api-key> -t netflix .
