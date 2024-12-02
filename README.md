@@ -148,13 +148,22 @@ Goto Manage Jenkins →Plugins → Available Plugins →
 
 Install below plugins
 
-1 Eclipse Temurin Installer (Install without restart)
+````
+Eclipse Temurin Installer 
+````
+````
+SonarQube Scanner
+````
+````
+NodeJs Plugin
+````
+````
+docker
+````
+````
+stage view
+````
 
-2 SonarQube Scanner (Install without restart)
-
-3 NodeJs Plugin (Install Without restart)
-
-4 Email Extension Plugin
 
 ### **Configure Java and Nodejs in Global Tool Configuration**
 
@@ -166,6 +175,9 @@ Goto Manage Jenkins → Tools → Install JDK(17) and NodeJs(16)→ Click on App
 Create the token
 
 Goto Jenkins Dashboard → Manage Jenkins → Credentials → Add Secret Text. It should look like this
+
+![image](https://github.com/user-attachments/assets/26cb309d-aa3c-4a74-873f-9e87b2fcce00)
+
 
 After adding sonar token
 
