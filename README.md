@@ -1,3 +1,11 @@
+Prerequisites:
+- Jenkins Serve
+- SonarQube
+- Docker
+- Trivy
+  
+
+
 TMDB API-KEY: 
 ````
 35a174bb9c8f09408e932727a5b57f78
