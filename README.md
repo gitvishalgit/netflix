@@ -8,7 +8,7 @@ Prerequisites:
 
 TMDB API-KEY: 
 ````
-35a174bb9c8f09408e932727a5b57f78
+020581a34f3ab93b1360a55bea864bd9
 ````
 
 <div align="center">
