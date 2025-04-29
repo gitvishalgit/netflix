@@ -29,4 +29,54 @@
 - By identifying and addressing issues, SonarQube contributes to creating more maintainable and robust code.
   
 **Technical Debt Reduction:**
-- Early identification and resolution of issues help reduce the long-term cost of fixing problems. 
+- Early identification and resolution of issues help reduce the long-term cost of fixing problems.
+
+
+# our pipeline
+````
+pipeline {
+    agent any
+    tools {
+        jdk 'jdk17'
+        nodejs 'node16'
+    }
+    environment {
+        SCANNER_HOME = tool 'sonar-scanner'
+    }
+    stages {
+
+        stage('Code-Pull') {
+            steps {
+                git branch: 'main', url: 'https://github.com/abhipraydhoble/netflix.git'
+            }
+        }
+        stage("Sonarqube Analysis") {
+            steps {
+                withSonarQubeEnv('sonar-server') {
+                    sh '''$SCANNER_HOME/bin/sonar-scanner -Dsonar.projectName=Netflix \
+                    -Dsonar.projectKey=Netflix'''
+                }
+            }
+        }
+        stage("quality gate") {
+            steps {
+                script {
+                    waitForQualityGate abortPipeline: false, credentialsId: 'sonar-token'
+                }
+            }
+        }
+        stage('Install Dependencies') {
+            steps {
+                sh "npm install"
+            }
+        }
+        stage('Deploy'){
+            steps{
+                 sh "docker build --build-arg TMDB_V3_API_KEY=020581a34f3ab93b1360a55bea864bd9 -t netflix ."
+                 sh "docker run -itd --name netflix -p 8081:80 netflix"
+            }
+        }
+        
+    }
+}
+````
