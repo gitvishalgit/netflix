@@ -32,7 +32,7 @@
 - Early identification and resolution of issues help reduce the long-term cost of fixing problems.
 
 
-# our pipeline
+# pipeline 1
 ````
 pipeline {
     agent any
@@ -74,6 +74,74 @@ pipeline {
             steps{
                  sh "docker build --build-arg TMDB_V3_API_KEY=020581a34f3ab93b1360a55bea864bd9 -t netflix ."
                  sh "docker run -itd --name netflix -p 8081:80 netflix"
+            }
+        }
+        
+    }
+}
+````
+
+# pipeline 2
+````
+pipeline {
+    agent any
+    tools {
+        jdk 'jdk17'
+        nodejs 'node16'
+    }
+    environment {
+        SCANNER_HOME = tool 'sonar-scanner'
+    }
+    stages {
+
+        stage('Code-Pull') {
+            steps {
+                git branch: 'main', url: 'https://github.com/abhipraydhoble/netflix.git'
+            }
+        }
+        stage("Sonarqube Analysis") {
+            steps {
+                withSonarQubeEnv('sonar-server') {
+                    sh '''$SCANNER_HOME/bin/sonar-scanner -Dsonar.projectName=Netflix \
+                    -Dsonar.projectKey=Netflix'''
+                }
+            }
+        }
+        stage("quality gate") {
+            steps {
+                script {
+                    waitForQualityGate abortPipeline: false, credentialsId: 'sonar-token'
+                }
+            }
+        }
+        stage('Install Dependencies') {
+            steps {
+                sh "npm install"
+            }
+        }
+       stage('TRIVY FS SCAN') {
+            steps {
+                sh "trivy fs . > trivyfs.txt"
+            }
+        }
+        stage("Docker Build & Push"){
+            steps{
+                script{
+                   withDockerRegistry(credentialsId: 'docker-cred', toolName: 'docker'){   
+                       sh "docker build --build-arg TMDB_V3_API_KEY=020581a34f3ab93b1360a55bea864bd9 -t abhipraydh96/moviesite ."
+                       sh "docker push abhipraydh96/moviesite "
+                    }
+                }
+            }
+        }
+        stage("TRIVY"){
+            steps{
+                sh "trivy image abhipraydh96/moviesite > trivyimage.txt" 
+            }
+        }
+        stage('Deploy to container'){
+            steps{
+                sh 'docker run -d --name netflix -p 8081:80 abhipraydh96/moviesite'
             }
         }
         
